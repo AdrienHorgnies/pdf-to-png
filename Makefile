@@ -11,9 +11,9 @@ $(IMAGE_STAMP): Dockerfile main.py
 
 test-actual.png: file.pdf $(IMAGE_STAMP) test-expected.png
 	docker run --rm -v .:/workdir $(IMAGE) file.pdf $@
-	diff test-actual.png test-expected.png || rm test-actual.png
+	diff test-actual.png test-expected.png
 
-publish: test-actual.png $(IMAGE_STAMP)
+publish: clean test-actual.png $(IMAGE_STAMP)
 	docker push $(IMAGE)
 
 clean:
